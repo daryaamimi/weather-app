@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+    <script
+      src="https://kit.fontawesome.com/d6d7c3043e.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/d6d7c3043e.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div class="container general">
+      <form class="row g-3" id="city-form">
+        <div class="col-auto">
+          <input
+            type="text"
+            placeholder="Search for location"
+            autocomplete="off"
+            class="location form-control"
+            id="city-value"
+          />
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn search" id="serach-button">
+            <span class="text">Search</span>
+          </button>
+          <button type="submit" class="btn home" id="home-button">
+            <i class="fa-solid fa-house"></i>
+          </button>
+        </div>
+      </form>
+      <div>
+        <h6 class="city" id="city"></h6>
+      </div>
+      <div class="row middle">
+        <div class="row">
+          <div class="col">
+            <h6>
+              <strong> CURRENT WEATHER </strong>
+            </h6>
+            <p id="current-time">Thursday 5:54</p>
+          </div>
+        </div>
+        <div class="row row-cols-auto">
+          <div class="col">
+            <span class="icon">
+              <i class="fa-solid fa-cloud cloud"></i>
+            </span>
+            <span class="current-tempreture"></span>
+          </div>
+          <div class="col">
+            <div class="row"></div>
+            <div class="row row-cols-auto">
+              <div class="col">
+                <h6 class="strong" id="description"></h6>
+              </div>
+              <div class="col detail-tempreture">
+                <h6 id="max" class="strong"></h6>
+                <h6 class="low strong" id="min"></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row row-cols-auto third">
+          <div class="col inf">
+            <strong> WIND </strong>
+            <br />
+            <span id="wind"></span>
+          </div>
+          <div class="col inf">
+            <strong> HUMIDITY </strong>
+            <br />
+            <span id="humidity"></span>
+          </div>
+          <div class="col inf">
+            <strong> VISIBILITY </strong>
+            <br />
+            <span id="visibility"></span>
+          </div>
+          <div class="col inf">
+            <strong> PRESSURE </strong>
+            <br />
+            <span id="pressure"></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col forecast">
+          <strong> 5 DAY FORECAST </strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <h6>
+                  <strong> Mon </strong>
+                </h6>
+              </div>
+              <div class="row row-cols-auto">
+                <div class="col emojis">
+                  <i class="fa-solid fa-cloud-sun"></i>
+                </div>
+                <div class="col detail-tempreture">
+                  <h6>
+                    <strong> 76° </strong>
+                  </h6>
+                  <h6 class="low">
+                    <strong> 68° </strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <h6>
+                  <strong> Tue </strong>
+                </h6>
+              </div>
+              <div class="row row-cols-auto">
+                <div class="col emojis">
+                  <i class="fa-solid fa-cloud-rain"></i>
+                </div>
+                <div class="col detail-tempreture">
+                  <h6>
+                    <strong> 79° </strong>
+                  </h6>
+                  <h6 class="low">
+                    <strong> 57° </strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <h6>
+                  <strong> Wen </strong>
+                </h6>
+              </div>
+              <div class="row row-cols-auto">
+                <div class="col emojis">
+                  <i class="fa-solid fa-cloud-sun"></i>
+                </div>
+                <div class="col detail-tempreture">
+                  <h6>
+                    <strong> 71° </strong>
+                  </h6>
+                  <h6 class="low">
+                    <strong> 56° </strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <h6>
+                  <strong> Thu </strong>
+                </h6>
+              </div>
+              <div class="row row-cols-auto">
+                <div class="col emojis">
+                  <i class="fa-solid fa-cloud-meatball"></i>
+                </div>
+                <div class="col detail-tempreture">
+                  <h6>
+                    <strong> 79° </strong>
+                  </h6>
+                  <h6 class="low">
+                    <strong> 63° </strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <h6>
+                  <strong> Fri </strong>
+                </h6>
+              </div>
+              <div class="row row-cols-auto">
+                <div class="col emojis">
+                  <i class="fa-solid fa-cloud-rain"></i>
+                </div>
+                <div class="col detail-tempreture">
+                  <h6>
+                    <strong> 85° </strong>
+                  </h6>
+                  <h6 class="low">
+                    <strong> 67° </strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/script.js"></script>
+  </body>
+</html>

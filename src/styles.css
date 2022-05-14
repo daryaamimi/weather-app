@@ -1,0 +1,190 @@
+body {
+  color: #3b344c;
+  font-family: "Open Sans", sans-serif;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(128 138 191) 0%,
+    rgb(195 163 206) 100.2%
+  );
+  background-repeat: no-repeat;
+}
+
+.general {
+  width: 50%;
+  border-radius: 10px;
+  padding: 20px 35px;
+  margin-top: 85px;
+  margin-bottom: 131px;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(163, 175, 243) 0%,
+    rgb(220, 182, 232) 100.2%
+  );
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 3px rgb(151 125 220);
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 3px rgb(151 125 220);
+}
+
+.location {
+  border-radius: 15px;
+  padding-left: 13px;
+  display: inline;
+  width: 100%;
+}
+
+.search,
+.home {
+  border: 1px solid #3b344c;
+}
+
+.search {
+  position: relative;
+  bottom: 2px;
+  margin-right: 5px;
+  border-radius: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  color: #3b344c;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(128 138 191) 0%,
+    rgb(195 163 206) 100.2%
+  );
+}
+
+.home {
+  position: relative;
+  bottom: 2px;
+  border-radius: 50px;
+  padding-top: 4px;
+  padding-bottom: 6px;
+  padding-left: 9px;
+  padding-right: 9px;
+  color: #3b344c;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(128 138 191) 0%,
+    rgb(195 163 206) 100.2%
+  );
+}
+
+.middle {
+  border-radius: 10px;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(128 138 191) 0%,
+    rgb(195 163 206) 100.2%
+  );
+}
+
+.city {
+  margin-left: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+p {
+  margin: 0;
+}
+
+h6 {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.cloud {
+  font-size: 80px;
+  margin-top: 15px;
+}
+
+.current-tempreture {
+  font-size: 50px;
+  position: relative;
+  bottom: 1px;
+  left: 10px;
+  margin-right: 35px;
+}
+
+.celsius,
+.farenheit,
+.line {
+  font-size: 15px;
+  position: relative;
+  bottom: 20px;
+}
+
+.celsius:hover,
+.farenheit:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tempreture-situation {
+  margin-left: 10px;
+}
+
+.low-situation {
+  position: relative;
+  bottom: -15px;
+  right: 29px;
+}
+
+.high-situation {
+  font-size: 1rem;
+  position: relative;
+  bottom: 12px;
+}
+
+.detail-tempreture {
+  margin-top: -10px;
+}
+
+.low {
+  margin-top: 13px;
+}
+
+.third {
+  margin-top: 35px;
+  margin-bottom: 15px;
+}
+
+.forecast {
+  margin-top: 18px;
+  margin-bottom: 9px;
+}
+
+.card {
+  border-radius: 10px;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(128 138 191) 0%,
+    rgb(195 163 206) 100.2%
+  );
+}
+
+.emojis {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.inf {
+  margin-right: 30px;
+}
+
+.search:hover,
+.home:hover,
+.card:hover {
+  opacity: 70%;
+}
+
+.strong {
+  font-weight: bold;
+}
