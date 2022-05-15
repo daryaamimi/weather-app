@@ -14,7 +14,7 @@ body {
   border-radius: 10px;
   padding: 20px 35px;
   margin-top: 85px;
-  margin-bottom: 131px;
+  margin-bottom: 75px;
   background: radial-gradient(
     circle at 10% 20%,
     rgb(163, 175, 243) 0%,
@@ -187,4 +187,14 @@ h6 {
 
 .strong {
   font-weight: bold;
+}
+
+.last {
+  margin-bottom: 18px;
+}
+
+footer {
+  text-align: center;
+  font-family: "Great Vibes", cursive;
+  font-size: 25px;
 }
