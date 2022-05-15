@@ -24,6 +24,7 @@ body {
 
 .form-control:focus {
   box-shadow: 0 0 0 3px rgb(151 125 220);
+  border-color: rgb(151 125 220);
 }
 
 .btn:focus {
