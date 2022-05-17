@@ -9,7 +9,6 @@ function formatDate(apiDate) {
     "Friday",
     "Saturday",
   ];
-
   let day = days[current.getDay()];
 
   let hours = current.getHours();
@@ -27,7 +26,6 @@ function formatDate(apiDate) {
 }
 
 const apiKey = "c30ce5ac8d66859d50289ad40960116b";
-
 const unit = "metric";
 
 let cityInput = document.querySelector("#city-value");
@@ -45,6 +43,7 @@ function showCurrentTempreture(response) {
   let minTempreture = document.querySelector("#min");
   let description = document.querySelector("#description");
   let currentTime = document.querySelector("#current-time");
+  let icon = document.querySelector("#icon");
 
   let currentTemp = Math.round(response.data.main.temp);
   let name = response.data.name;
@@ -67,6 +66,12 @@ function showCurrentTempreture(response) {
   minTempreture.innerHTML = `${minTempretureValue}°`;
   description.innerHTML = `${descriptionValue}`;
   currentTime.innerHTML = formatDate(response.data.dt * 1000);
+  let iconCode = response.data.weather[0].icon;
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+  );
+  icon.setAttribute("alt", descriptionValue);
   console.log(response);
 }
 
