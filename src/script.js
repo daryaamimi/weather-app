@@ -1,4 +1,5 @@
-function formatDate(current) {
+function formatDate(apiDate) {
+  let current = new Date(apiDate);
   let days = [
     "Sunday",
     "Monday",
@@ -21,14 +22,9 @@ function formatDate(current) {
     minutes = `0${minutes}`;
   }
 
-  let currentTime = document.querySelector("#current-time");
-
-  currentTime.innerHTML = `${day} ${hours}:${minutes}`;
+  let currentDate = `${day} ${hours}:${minutes}`;
+  return currentDate;
 }
-
-let current = new Date();
-
-formatDate(current);
 
 const apiKey = "c30ce5ac8d66859d50289ad40960116b";
 
@@ -40,34 +36,38 @@ let cityForm = document.querySelector("#city-form");
 
 function showCurrentTempreture(response) {
   let currentTempreture = document.querySelector(".current-tempreture");
-  let currentTemp = Math.round(response.data.main.temp);
-  currentTempreture.innerHTML = `${currentTemp}°`;
   let cityName = document.querySelector("#city");
-  let name = response.data.name;
-  cityName.innerHTML = `${name}`;
   let wind = document.querySelector("#wind");
   let humidity = document.querySelector("#humidity");
   let visibility = document.querySelector("#visibility");
   let pressure = document.querySelector("#pressure");
+  let maxTempreture = document.querySelector("#max");
+  let minTempreture = document.querySelector("#min");
+  let description = document.querySelector("#description");
+  let currentTime = document.querySelector("#current-time");
+
+  let currentTemp = Math.round(response.data.main.temp);
+  let name = response.data.name;
   let windValue = Math.round(response.data.wind.speed);
-  wind.innerHTML = `${windValue} mph`;
   let humidityValue = Math.round(response.data.main.humidity);
-  humidity.innerHTML = `${humidityValue}%`;
   let visibilityValue = response.data.visibility;
+  let pressureValue = response.data.main.pressure;
+  let maxTempretureValue = Math.round(response.data.main.temp_max);
+  let minTempretureValue = Math.round(response.data.main.temp_min);
+  let descriptionValue = response.data.weather[0].description;
+  currentTempreture.innerHTML = `${currentTemp}°`;
+  cityName.innerHTML = `${name}`;
+  wind.innerHTML = `${windValue} mph`;
+  humidity.innerHTML = `${humidityValue}%`;
   visibilityValue = Math.round(visibilityValue / 1609);
   visibility.innerHTML = `${visibilityValue} mi`;
-  let pressureValue = response.data.main.pressure;
   pressureValue = Math.round(pressureValue / 33.863886666667);
   pressure.innerHTML = `${pressureValue} in`;
-  let maxTempreture = document.querySelector("#max");
-  let maxTempretureValue = Math.round(response.data.main.temp_max);
   maxTempreture.innerHTML = `${maxTempretureValue}°`;
-  let minTempreture = document.querySelector("#min");
-  let minTempretureValue = Math.round(response.data.main.temp_min);
   minTempreture.innerHTML = `${minTempretureValue}°`;
-  let description = document.querySelector("#description");
-  let descriptionValue = response.data.weather[0].description;
   description.innerHTML = `${descriptionValue}`;
+  currentTime.innerHTML = formatDate(response.data.dt * 1000);
+  console.log(response);
 }
 
 (function () {
