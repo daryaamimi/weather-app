@@ -27,9 +27,9 @@ function formatDate(apiDate) {
 
 let celsiusTempreture = null;
 
-let allIcons = [
+const allIcons = [
   "clear sky",
-  "few clouds",
+  "clouds",
   "haze",
   "heavy snow",
   "mist",
@@ -46,6 +46,83 @@ const unit = "metric";
 let cityInput = document.querySelector("#city-value");
 
 let cityForm = document.querySelector("#city-form");
+
+function formatDay(apiDate) {
+  let date = new Date(apiDate * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function showForecast(response) {
+  let forecast = response.data.daily;
+  console.log(forecast);
+  let forecastingWeather = document.querySelector("#weatherForecast");
+  let forescastElement = "";
+  forescastElement = `<div class="row last">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      let forecastIcon;
+      let mainOfIcon = forecastDay.weather[0].main.toLowerCase();
+      let descriptionOfIcon = forecastDay.weather[0].description.toLowerCase();
+      let idOfIcon = forecastDay.weather[0].id;
+      for (let i = 0; i < allIcons.length; i++) {
+        if (descriptionOfIcon.localeCompare(allIcons[i]) === 0) {
+          forecastIcon = `images/${allIcons[i]}.gif`;
+        } else if (mainOfIcon.localeCompare(allIcons[i]) === 0) {
+          forecastIcon = `images/${allIcons[i]}.gif`;
+        } else if (
+          idOfIcon === 711 ||
+          idOfIcon === 731 ||
+          idOfIcon === 741 ||
+          idOfIcon === 751 ||
+          idOfIcon === 761 ||
+          idOfIcon === 762 ||
+          idOfIcon === 771 ||
+          idOfIcon === 781
+        ) {
+          forecastIcon = `images/mist.gif`;
+        }
+      }
+
+      forescastElement += `<div class="col-sm forecastCard">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <h6>
+                    <strong> ${formatDay(forecastDay.dt)} </strong>
+                  </h6>
+                </div>
+                <div class="row row-cols-auto">
+                    <img src="${forecastIcon}" class="forecastIcon"/>
+                  <div class="col detail-tempreture">
+                    <h6>
+                      <strong> ${Math.round(forecastDay.temp.max)}° </strong>
+                    </h6>
+                    <h6 class="low">
+                      <strong> ${Math.round(forecastDay.temp.min)}° </strong>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+    }
+  });
+
+  forescastElement = forescastElement + `</div>`;
+  forecastingWeather.innerHTML = forescastElement;
+}
+
+function getForecast(coordinates) {
+  let latitude = coordinates.lat;
+  let longitude = coordinates.lon;
+  console.log(latitude);
+  console.log(longitude);
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(showForecast);
+}
 
 function showCurrentTempreture(response) {
   let currentTempreture = document.querySelector(".current-tempreture");
@@ -86,11 +163,14 @@ function showCurrentTempreture(response) {
   let mainOfIcon = response.data.weather[0].main.toLowerCase();
   let descriptionOfIcon = response.data.weather[0].description.toLowerCase();
   let idOfIcon = response.data.weather[0].id;
+  let source;
   for (let i = 0; i < allIcons.length; i++) {
     if (descriptionOfIcon.localeCompare(allIcons[i]) === 0) {
-      imageOfIcon.src = `images/${allIcons[i]}.gif`;
+      source = `images/${allIcons[i]}.gif`;
+      imageOfIcon.setAttribute("src", source);
     } else if (mainOfIcon.localeCompare(allIcons[i]) === 0) {
-      imageOfIcon.src = `images/${allIcons[i]}.gif`;
+      source = `images/${allIcons[i]}.gif`;
+      imageOfIcon.setAttribute("src", source);
     } else if (
       idOfIcon === 711 ||
       idOfIcon === 731 ||
@@ -101,10 +181,12 @@ function showCurrentTempreture(response) {
       idOfIcon === 771 ||
       idOfIcon === 781
     ) {
-      imageOfIcon.src = `images/mist.gif`;
+      source = `images/mist.gif`;
+      imageOfIcon.setAttribute("src", source);
     }
   }
-  console.log(response);
+  let coordinates = response.data.coord;
+  getForecast(coordinates);
 }
 
 function serach(city) {

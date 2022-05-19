@@ -217,6 +217,11 @@ footer {
   margin-bottom: 10px;
 }
 
-img {
+.cuurentIcon {
   height: 70px;
+}
+
+.forecastIcon {
+  height: 35px;
+  margin-top: 18px;
 }
