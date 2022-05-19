@@ -143,7 +143,7 @@ function showCurrentTempreture(response) {
   let maxTempretureValue = Math.round(response.data.main.temp_max);
   let minTempretureValue = Math.round(response.data.main.temp_min);
   let descriptionValue = response.data.weather[0].description;
-  currentTempreture.innerHTML = `${currentTemp}°`;
+  currentTempreture.innerHTML = `${currentTemp}`;
   cityName.innerHTML = `${name}`;
   wind.innerHTML = `${windValue} mph`;
   humidity.innerHTML = `${humidityValue}%`;
