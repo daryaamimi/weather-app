@@ -1,5 +1,3 @@
-let celsiusTempreture = null;
-
 function formatDate(apiDate) {
   let current = new Date(apiDate);
   let days = [
@@ -27,6 +25,21 @@ function formatDate(apiDate) {
   return currentDate;
 }
 
+let celsiusTempreture = null;
+
+let allIcons = [
+  "clear sky",
+  "few clouds",
+  "haze",
+  "heavy snow",
+  "mist",
+  "rain",
+  "shower rain",
+  "snow",
+  "thunderstorm",
+  "drizzle",
+];
+
 const apiKey = "c30ce5ac8d66859d50289ad40960116b";
 const unit = "metric";
 
@@ -45,7 +58,6 @@ function showCurrentTempreture(response) {
   let minTempreture = document.querySelector("#min");
   let description = document.querySelector("#description");
   let currentTime = document.querySelector("#current-time");
-  let icon = document.querySelector("#icon");
 
   celsiusTempreture = Math.round(response.data.main.temp);
   let currentTemp = celsiusTempreture;
@@ -69,6 +81,29 @@ function showCurrentTempreture(response) {
   minTempreture.innerHTML = `${minTempretureValue}°`;
   description.innerHTML = `${descriptionValue}`;
   currentTime.innerHTML = formatDate(response.data.dt * 1000);
+
+  let imageOfIcon = document.querySelector("#icon");
+  let mainOfIcon = response.data.weather[0].main.toLowerCase();
+  let descriptionOfIcon = response.data.weather[0].description.toLowerCase();
+  let idOfIcon = response.data.weather[0].id;
+  for (let i = 0; i < allIcons.length; i++) {
+    if (descriptionOfIcon.localeCompare(allIcons[i]) === 0) {
+      imageOfIcon.src = `images/${allIcons[i]}.gif`;
+    } else if (mainOfIcon.localeCompare(allIcons[i]) === 0) {
+      imageOfIcon.src = `images/${allIcons[i]}.gif`;
+    } else if (
+      idOfIcon === 711 ||
+      idOfIcon === 731 ||
+      idOfIcon === 741 ||
+      idOfIcon === 751 ||
+      idOfIcon === 761 ||
+      idOfIcon === 762 ||
+      idOfIcon === 771 ||
+      idOfIcon === 781
+    ) {
+      imageOfIcon.src = `images/mist.gif`;
+    }
+  }
   console.log(response);
 }
 
@@ -77,12 +112,22 @@ function serach(city) {
   axios.get(apiUrl).then(showCurrentTempreture);
 }
 
+(function () {
+  let cityName = document.querySelector("#city");
+  let cityTextNode = document.createTextNode("London");
+  cityName.appendChild(cityTextNode);
+  let city = "London";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+  axios.get(apiUrl).then(showCurrentTempreture);
+})();
+
 function changingCity(event) {
   event.preventDefault();
   let cityInputValue = cityInput.value;
   cityInputValue = cityInputValue.trim();
   if (cityInputValue) {
-    serach(cityInputValue);
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputValue}&appid=${apiKey}&units=${unit}`;
+    axios.get(apiUrl).then(showCurrentTempreture);
   } else {
     alert("Enter a location!");
     event.preventDefault();
@@ -129,6 +174,3 @@ function convertingToFarenheit(event) {
 
 let farenheit = document.querySelector("#farenheit");
 farenheit.addEventListener("click", convertingToFarenheit);
-
-const defaultCity = "London";
-serach(defaultCity);
