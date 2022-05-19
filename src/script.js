@@ -25,8 +25,6 @@ function formatDate(apiDate) {
   return currentDate;
 }
 
-let celsiusTempreture = null;
-
 const allIcons = [
   "clear sky",
   "clouds",
@@ -136,8 +134,7 @@ function showCurrentTempreture(response) {
   let description = document.querySelector("#description");
   let currentTime = document.querySelector("#current-time");
 
-  celsiusTempreture = Math.round(response.data.main.temp);
-  let currentTemp = celsiusTempreture;
+  let currentTemp = Math.round(response.data.main.temp);
   let name = response.data.name;
   let windValue = Math.round(response.data.wind.speed);
   let humidityValue = Math.round(response.data.main.humidity);
@@ -233,26 +230,3 @@ homeButton.addEventListener("click", function (event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(getPosition);
 });
-
-function convertingToCelsius(event) {
-  event.preventDefault();
-  let currentTempreture = document.querySelector(".current-tempreture");
-  currentTempreture.innerHTML = `${celsiusTempreture}°`;
-  farenheit.classList.remove("active");
-  celsius.classList.add("active");
-}
-
-let celsius = document.querySelector("#celsius");
-celsius.addEventListener("click", convertingToCelsius);
-
-function convertingToFarenheit(event) {
-  event.preventDefault();
-  let currentTempreture = document.querySelector(".current-tempreture");
-  let farenheitTemp = Math.round(celsiusTempreture * 1.8 + 32);
-  currentTempreture.innerHTML = `${farenheitTemp}°`;
-  celsius.classList.remove("active");
-  farenheit.classList.add("active");
-}
-
-let farenheit = document.querySelector("#farenheit");
-farenheit.addEventListener("click", convertingToFarenheit);
