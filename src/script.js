@@ -1,3 +1,5 @@
+let celsiusTempreture = null;
+
 function formatDate(apiDate) {
   let current = new Date(apiDate);
   let days = [
@@ -45,7 +47,8 @@ function showCurrentTempreture(response) {
   let currentTime = document.querySelector("#current-time");
   let icon = document.querySelector("#icon");
 
-  let currentTemp = Math.round(response.data.main.temp);
+  celsiusTempreture = Math.round(response.data.main.temp);
+  let currentTemp = celsiusTempreture;
   let name = response.data.name;
   let windValue = Math.round(response.data.wind.speed);
   let humidityValue = Math.round(response.data.main.humidity);
@@ -66,31 +69,20 @@ function showCurrentTempreture(response) {
   minTempreture.innerHTML = `${minTempretureValue}°`;
   description.innerHTML = `${descriptionValue}`;
   currentTime.innerHTML = formatDate(response.data.dt * 1000);
-  let iconCode = response.data.weather[0].icon;
-  icon.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${iconCode}@2x.png`
-  );
-  icon.setAttribute("alt", descriptionValue);
   console.log(response);
 }
 
-(function () {
-  let cityName = document.querySelector("#city");
-  let cityTextNode = document.createTextNode("London");
-  cityName.appendChild(cityTextNode);
-  let city = "London";
+function serach(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then(showCurrentTempreture);
-})();
+}
 
 function changingCity(event) {
   event.preventDefault();
   let cityInputValue = cityInput.value;
   cityInputValue = cityInputValue.trim();
   if (cityInputValue) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputValue}&appid=${apiKey}&units=${unit}`;
-    axios.get(apiUrl).then(showCurrentTempreture);
+    serach(cityInputValue);
   } else {
     alert("Enter a location!");
     event.preventDefault();
@@ -114,3 +106,29 @@ homeButton.addEventListener("click", function (event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(getPosition);
 });
+
+function convertingToCelsius(event) {
+  event.preventDefault();
+  let currentTempreture = document.querySelector(".current-tempreture");
+  currentTempreture.innerHTML = `${celsiusTempreture}°`;
+  farenheit.classList.remove("active");
+  celsius.classList.add("active");
+}
+
+let celsius = document.querySelector("#celsius");
+celsius.addEventListener("click", convertingToCelsius);
+
+function convertingToFarenheit(event) {
+  event.preventDefault();
+  let currentTempreture = document.querySelector(".current-tempreture");
+  let farenheitTemp = Math.round(celsiusTempreture * 1.8 + 32);
+  currentTempreture.innerHTML = `${farenheitTemp}°`;
+  celsius.classList.remove("active");
+  farenheit.classList.add("active");
+}
+
+let farenheit = document.querySelector("#farenheit");
+farenheit.addEventListener("click", convertingToFarenheit);
+
+const defaultCity = "London";
+serach(defaultCity);
