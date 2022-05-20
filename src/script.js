@@ -54,7 +54,6 @@ function formatDay(apiDate) {
 
 function showForecast(response) {
   let forecast = response.data.daily;
-  console.log(forecast);
   let forecastingWeather = document.querySelector("#weatherForecast");
   let forescastElement = "";
   forescastElement = `<div class="row last">`;
@@ -115,10 +114,7 @@ function showForecast(response) {
 function getForecast(coordinates) {
   let latitude = coordinates.lat;
   let longitude = coordinates.lon;
-  console.log(latitude);
-  console.log(longitude);
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
-  console.log(apiUrl);
   axios.get(apiUrl).then(showForecast);
 }
 
